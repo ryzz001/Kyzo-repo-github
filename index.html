@@ -1,9 +1,9 @@
-<html lang="en">
+<html class="scroll-smooth" lang="id">
  <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1" name="viewport"/>
   <title>
-   Payment QRIS and Dana
+   Payment Dana
   </title>
   <script src="https://cdn.tailwindcss.com">
   </script>
@@ -13,46 +13,114 @@
    body {
       font-family: 'Inter', sans-serif;
     }
+    /* Cahaya warna-warni di sudut */
+    .corner-glow {
+      position: fixed;
+      width: 150px;
+      height: 150px;
+      filter: blur(60px);
+      opacity: 0.7;
+      z-index: -10;
+      border-radius: 50%;
+      animation: glowPulse 6s ease-in-out infinite alternate;
+    }
+    .top-left {
+      top: 0;
+      left: 0;
+      background: linear-gradient(45deg, #ff3cac, #784ba0, #2b86c5);
+      animation-delay: 0s;
+    }
+    .top-right {
+      top: 0;
+      right: 0;
+      background: linear-gradient(135deg, #f7971e, #ffd200, #f7971e);
+      animation-delay: 2s;
+    }
+    .bottom-left {
+      bottom: 0;
+      left: 0;
+      background: linear-gradient(225deg, #00f260, #0575e6, #00f260);
+      animation-delay: 4s;
+    }
+    .bottom-right {
+      bottom: 0;
+      right: 0;
+      background: linear-gradient(315deg, #ff512f, #dd2476, #ff512f);
+      animation-delay: 1s;
+    }
+    @keyframes glowPulse {
+      0% {
+        opacity: 0.7;
+        transform: scale(1);
+      }
+      100% {
+        opacity: 0.3;
+        transform: scale(1.2);
+      }
+    }
   </style>
  </head>
- <body class="bg-gray-50 min-h-screen flex flex-col items-center p-4">
-  <div class="max-w-md w-full bg-white rounded-xl shadow-md p-6">
-   <h1 class="text-2xl font-semibold text-center mb-6">
-    Pembayaran QRIS &amp; Dana
-   </h1>
-   <!-- QRIS Payment Section -->
-   <section class="mb-10">
-    <h2 class="text-xl font-semibold mb-4 text-center">
-     Bayar dengan QRIS
-    </h2>
-    <div class="flex justify-center mb-4">
-     <img alt="QRIS payment code, black and white QR code square with Indonesian Rupiah symbol in the center" class="w-48 h-48 object-contain rounded-lg shadow-md" height="200" src="https://files.catbox.moe/4tlbwh.jpg" width="200"/>
-    </div>
-    <p class="text-center text-gray-700 mb-4">
-     Scan QRIS di atas menggunakan aplikasi pembayaran yang mendukung QRIS seperti Dana, OVO, GoPay, LinkAja, dan lainnya.
-    </p>
-    <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition" type="button">
-     Salin Kode QRIS
-    </button>
-   </section>
-   <!-- Dana Payment Section -->
-   <section>
-    <h2 class="text-xl font-semibold mb-4 text-center">
-     Bayar dengan Dana
-    </h2>
-    <div class="flex justify-center mb-4">
-     <img alt="Dana payment app logo, blue circle with white stylized letter D in the center" class="w-36 h-36 object-contain rounded-full shadow-md" height="150" src="https://files.catbox.moe/p2cwgd.jpg" width="150"/>
-    </div>
-    <p class="text-center text-gray-700 mb-4">
-     Gunakan aplikasi Dana untuk melakukan pembayaran dengan mudah dan cepat. Scan QRIS di atas atau gunakan nomor Dana berikut:
-    </p>
-    <div class="bg-gray-100 border border-gray-300 rounded-lg p-4 text-center font-mono text-lg select-all cursor-pointer" onclick="navigator.clipboard.writeText('08993937289')" title="Klik untuk menyalin nomor Dana">
-     08993937289
-    </div>
-    <button class="mt-6 w-full bg-blue-700 hover:bg-blue-800 text-white font-semibold py-3 rounded-lg transition" onclick="alert('Nomor Dana telah disalin ke clipboard!')" type="button">
-     Salin Nomor Dana
-    </button>
-   </section>
+ <body class="bg-gray-900 min-h-screen flex items-center justify-center p-6 relative overflow-hidden">
+  <!-- Cahaya warna-warni di sudut -->
+  <div class="corner-glow top-left">
   </div>
+  <div class="corner-glow top-right">
+  </div>
+  <div class="corner-glow bottom-left">
+  </div>
+  <div class="corner-glow bottom-right">
+  </div>
+  <main class="bg-gray-800 bg-opacity-90 rounded-xl shadow-2xl max-w-md w-full p-8 text-white relative z-10" role="main">
+   <h1 class="text-3xl font-semibold mb-6 text-center">
+   </h1>
+   <section class="mb-8">
+    <h2 class="text-xl font-semibold mb-3">
+     Nomor Dana
+    </h2>
+    <div class="flex items-center justify-between bg-gray-700 rounded-lg p-4 select-text" id="dana-number-container">
+     <span class="text-lg font-mono tracking-widest" id="dana-number">
+      08993937289
+     </span>
+     <button aria-label="Salin nomor Dana" class="ml-4 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 hover:from-pink-600 hover:via-red-600 hover:to-yellow-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md flex items-center transition duration-300" id="copy-button" type="button">
+      <i class="fas fa-copy mr-2">
+      </i>
+      Salin Nomor
+     </button>
+    </div>
+    <p aria-live="polite" class="mt-2 text-green-400 font-medium text-sm invisible" id="copy-feedback" role="alert">
+     Nomor Dana berhasil disalin!
+    </p>
+   </section>
+   <section>
+    <h2 class="text-xl font-semibold mb-3">
+     QR All Payment
+    </h2>
+    <div class="flex flex-col items-center bg-gray-700 rounded-lg p-6">
+     <img alt="Gambar QR code pembayaran Dana berwarna hitam putih dengan pola kotak-kotak yang jelas dan mudah dipindai" class="mb-4 rounded-md shadow-lg" height="240" id="qr-image" src="https://files.catbox.moe/4tlbwh.jpg" width="240"/>
+     <a aria-label="Unduh foto QR Dana" class="bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 hover:from-green-500 hover:via-blue-600 hover:to-purple-700 text-white font-semibold py-2 px-6 rounded-lg shadow-md flex items-center transition duration-300" download="QR_Dana_Payment.png" href="https://files.catbox.moe/4tlbwh.jpg" id="download-button">
+      <i class="fas fa-download mr-2">
+      </i>
+      View
+     </a>
+    </div>
+   </section>
+  </main>
+  <script>
+   const copyBtn = document.getElementById('copy-button');
+    const danaNumber = document.getElementById('dana-number').textContent.trim();
+    const feedback = document.getElementById('copy-feedback');
+
+    copyBtn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(danaNumber);
+        feedback.classList.remove('invisible');
+        setTimeout(() => {
+          feedback.classList.add('invisible');
+        }, 2500);
+      } catch (err) {
+        alert('Gagal menyalin nomor. Silakan salin secara manual.');
+      }
+    });
+  </script>
  </body>
 </html>
